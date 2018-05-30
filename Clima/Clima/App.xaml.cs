@@ -13,7 +13,7 @@ namespace Clima
 		{
 			InitializeComponent();
 
-			MainPage = new Clima.MainPage();
+			MainPage = new Clima.View.WeatherPage();
 		}
 
 		protected override void OnStart ()
