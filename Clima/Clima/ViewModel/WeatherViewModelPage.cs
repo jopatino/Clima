@@ -1,12 +1,13 @@
-﻿using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿
 
 namespace Clima.ViewModel
 {
+    using GalaSoft.MvvmLight.Command;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Windows.Input;
+    using Xamarin.Forms;
     public class WeatherViewModelPage:NotificableViewModel
     {
         #region Atributos
@@ -107,10 +108,20 @@ namespace Clima.ViewModel
             response.EnsureSuccessStatusCode();
             var jsonResult = response.Content.ReadAsStringAsync().Result;
             var weatherModel = Weather.FromJson(jsonResult);
-            SetValues(weatherModel);
+            FijarValoresValores(weatherModel);
         }
 
-       
+        private void FijarValores(Weather weatherModel)
+        {
+                Ubicacion = weatherModel.Query.Results.Channel.Location.City;
+                Pais = weatherModel.Query.Results.Channel.Location.Country;
+                Region = weatherModel.Query.Results.Channel.Location.Region;
+                UltimaActualizacion = weatherModel.Query.Results.Channel.Item.Condition.Date;
+                Temperatura = weatherModel.Query.Results.Channel.Item.Condition.Temp;
+                Clima = weatherModel.Query.Results.Channel.Item.Condition.Text;
+                var imgLink = $"http://l.yimg.com/a/i/us/we/52/{weatherModel.Query.Results.Channel.Item.Condition.Code}.gif";
+                Imagen = ImageSource.FromUri(new Uri(imgLink));
+        }
 
         private string ObtenerUrl()
         {

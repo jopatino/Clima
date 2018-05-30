@@ -45,7 +45,7 @@
                 <Label Text="{Binding Clima}" Grid.Column="1" Grid.Row="5"></Label>
             </Grid>
 
-            <Image Source="{Binding Imagen}" HeightRequest="200" WidthRequest="200"></Image>
+            <Image Source="{Binding Imagen}" HeightRequest="50" WidthRequest="50"></Image>
         </StackLayout>
         
         
