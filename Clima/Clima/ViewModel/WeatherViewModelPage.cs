@@ -87,10 +87,7 @@ namespace Clima.ViewModel
             }
         }
 
-        private void Buscar()
-        {
-            throw new NotImplementedException();
-        }
+        
         #endregion
 
         #region Constructores
@@ -99,6 +96,27 @@ namespace Clima.ViewModel
 
         }
 
+        #endregion
+
+        #region Métodos
+        private async void Buscar()
+        {
+            HttpClient cliente = new HttpClient();
+            cliente.BaseAddress = new Uri(ObtenerUrl());
+            var response = await cliente.GetAsync(cliente.BaseAddress);
+            response.EnsureSuccessStatusCode();
+            var jsonResult = response.Content.ReadAsStringAsync().Result;
+            var weatherModel = Weather.FromJson(jsonResult);
+            SetValues(weatherModel);
+        }
+
+       
+
+        private string ObtenerUrl()
+        {
+            string serviceUrl = $"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22{ResultTerm}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+            return serviceUrl;
+        }
         #endregion
 
 

@@ -5,11 +5,11 @@
              xmlns:local="clr-namespace:Clima.ViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:WeatherViewModelPage x:Key="weather"></local:WeatherViewModelPage>
+            <local:WeatherViewModelPage x:Key="weatherViewModel"></local:WeatherViewModelPage>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BindingContext="{Binding Source={StaticResource weatherViewModel}}">
             <SearchBar Placeholder="Ingrese Ciudad" Text="{Binding ResultTerm}" SearchCommand="{Binding BuscarCommand}"></SearchBar>
             
             <Grid>
